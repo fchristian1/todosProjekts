@@ -1,0 +1,59 @@
+# Simple Todo App but advanced architectures
+This is a simple Hello World Todo Application. The background is to show how advanced can be the architecture of a simple application.
+
+## The App ist built with the following technologies:
+
+
+- Frontend:
+    - React
+- Backend:
+    - Node.js
+
+Comunication between Frontend and Backend is done with REST API.
+The Backend is connected to a MongoDB Database.
+
+## The App has the following features:
+
+- Login / Register
+- Add Todo
+- Edit Todo
+- Delete Todo
+- Mark Todo as done
+- Mark Todo as undone
+- Logout
+
+## The App has the following internal structure:
+
+- Frontend:
+    - Components
+    - Services
+    - Pages
+    - Context
+
+- Backend:
+    - Routes
+    - Controllers
+    - Services
+    - Models
+    - Connectors
+    - Middlewares
+    - Config
+
+- Database:
+    - MongoDB
+
+## The app in his first version(todosProject_v1) has the following architecture:
+
+- Frontend and Backend run direkt on servers
+- Frontend and Backend are connected with http requests and responses
+- The Database is on a separate server
+- The Backend is connected to the Database with a connector
+- Monitoring comes on a separate server with Grafana, Prometheus, Loki and Alertmanager
+- CI/CD comes on a separate server with a own repository and registry
+- All servers here are AWS EC2 Ubuntu Servers as example could also be any other servers, my only point is to show how the architecture can be run with ip addresses and ports over the internet
+
+Server 1 - Frontend
+Server 2 - Backend
+Server 3 - Database
+Server 4 - Monitoring
+Server 5 - CI/CD
