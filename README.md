@@ -25,22 +25,22 @@ The Backend is connected to a MongoDB Database.
 ## The App has the following internal structure:
 
 - Frontend:
-    - Components
-    - Services
-    - Pages
-    - Context
+    - Components - for UI
+    - Services - for http requests
+    - Pages - for routing
+    - Context - for global state management
 
 - Backend:
-    - Routes
-    - Controllers
-    - Services
-    - Models
-    - Connectors
-    - Middlewares
-    - Config
+    - Routes - for routing
+    - Controllers - for handling requests
+    - Services - for business logic
+    - Models - for data structure
+    - Connectors - for connecting to the database
+    - Middlewares - for handling requests before they reach the controllers
+    - Config - for configuration
 
 - Database:
-    - MongoDB
+    - MongoDB - for storing data
 
 ## The app in his first version(todosProject_v1) has the following architecture:
 
