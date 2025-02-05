@@ -2,9 +2,9 @@ import React from "react";
 
 function Container({ children }) {
     return (
-        <div className="w-full flex flex-col itmes-center justify-center">
-            <div className="z-10 w-full p-2 bg-gray-50  border-2 border-black rounded-xl">{children}</div>
-            <div className="w-11/12 relative self-center h-2 -top-[5px] rounded-b-2xl z-0 bg-black"></div>
+        <div className="flex flex-col justify-center w-full itmes-center">
+            <div className="z-10 border-2 bg-gray-50 p-2 border-black rounded-xl w-full">{children}</div>
+            <div className="relative -top-[5px] z-0 bg-black rounded-b-2xl w-11/12 h-2 self-center"></div>
         </div>
     );
 }
