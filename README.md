@@ -6,7 +6,7 @@ This is a simple Hello World Todo Application. The background is to show how adv
 to start the app in dev mode run the following command:
 
 ```bash
-cd todosProject_v1 && start_dev
+clone https://github.com/fchristian1/todosProjekts.git && cd todosProjekts/todosProject_v1 && start_dev
 ```
 ## todosProject_v1_terraform
 
@@ -14,7 +14,7 @@ to test the app with terraform run the following command:
 you must be login with aws_cli and have the right permissions to create resources S3 and IAM_policies
 
 ```bash
-cd todosProject_v1_terraform/terraform && terraform init && terraform apply
+clone https://github.com/fchristian1/todosProjekts.git && cd todosProjekts/todosProject_v1_terraform/terraform && terraform init && terraform apply
 ```
 
 
