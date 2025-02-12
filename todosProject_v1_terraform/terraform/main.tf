@@ -74,8 +74,8 @@ resource "aws_s3_bucket_policy" "site" {
 
 # This output block defines the output values for the Terraform configuration.
 output "website_url" {
-  value = "http://${aws_s3_bucket.website.website_endpoint}/"
-
+  value      = "http://${aws_s3_bucket_website_configuration.website.website_endpoint}/"
+  depends_on = [aws_s3_bucket.website]
 }
 
 # Upload files to the S3 bucket
@@ -95,7 +95,7 @@ resource "aws_s3_object" "source_files" {
 }
 
 # Configure the S3 bucket as a static website
-resource "aws_s3_bucket_website_configuration" "example" {
+resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.website.id
 
   index_document {
