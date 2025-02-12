@@ -1,3 +1,5 @@
 .tasks
 node_modules
 .env
+.terraform*
+terraform.tfstate*

@@ -1,0 +1,2 @@
+#!/bin/bash
+npx pm2 start app_prod.config.js --update-env
