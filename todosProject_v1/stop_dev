@@ -1,0 +1,2 @@
+#!/bin/bash
+npx pm2 stop app_dev.config.js

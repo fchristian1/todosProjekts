@@ -1,6 +1,23 @@
 # Simple Todo App but advanced architectures
 This is a simple Hello World Todo Application. The background is to show how advanced can be the architecture of a simple application.
 
+## todosProject_v1
+
+to start the app in dev mode run the following command:
+
+```bash
+cd todosProject_v1 && start_dev
+```
+## todosProject_v1_terraform
+
+to test the app with terraform run the following command:
+you must be login with aws_cli and have the right permissions to create resources S3 and IAM_policies
+
+```bash
+cd todosProject_v1_terraform/terraform && terraform init && terraform apply
+```
+
+
 ## The App ist built with the following technologies:
 
 
@@ -15,32 +32,38 @@ The Backend is connected to a MongoDB Database.
 ## The App has the following features:
 
 - Login / Register
-- Add Todo
-- Edit Todo
-- Delete Todo
-- Mark Todo as done
-- Mark Todo as undone
+- Create Project
+- Edit Project
+- Delete Project
+- Add Task to Project
+- Create Task
+- Edit Task
+- Delete Task
+- Mark Task as completed
+- Mark Task as ongoing
+- Mark Task as inprocess
+- Mark Task as canceled
 - Logout
 
 ## The App has the following internal structure:
 
 - Frontend:
-    - Components
-    - Services
-    - Pages
-    - Context
+    - Components - for UI
+    - Services - for http requests
+    - Pages - for routing
+    - Context - for global state management
 
 - Backend:
-    - Routes
-    - Controllers
-    - Services
-    - Models
-    - Connectors
-    - Middlewares
-    - Config
+    - Routes - for routing
+    - Controllers - for handling requests
+    - Services - for business logic
+    - Models - for data structure
+    - Connectors - for connecting to the database
+    - Middlewares - for handling requests before they reach the controllers
+    - Config - for configuration
 
 - Database:
-    - MongoDB
+    - MongoDB - for storing data
 
 ## The app in his first version(todosProject_v1) has the following architecture:
 
