@@ -4,19 +4,54 @@ provider "aws" {
 
 }
 
-
-resource "null_resource" "build_frontend" {
+# This data block runs a shell script to build the frontend application. It installs the dependencies and builds the application using npm.
+data "external" "build_frontend" {
+  program = ["bash", "-c", <<EOT
+    cd ../todosProject_v1/frontend
+    npm install > /dev/null
+    npm run build > /dev/null
+    echo "{\"build\": \"completed\"}"
+  EOT
+  ]
+  working_dir = "${path.module}/../todosProject_v1/frontend"
+}
+resource "null_resource" "delete_dist_on_destroy" {
   provisioner "local-exec" {
-    command = "cd ../frontend && npm install && npm run build"
+    when    = destroy
+    command = "cd ../todosProject_v1/frontend && rm -rf dist"
   }
 }
-variable "websiteurl" {
-  type = string
+# Upload files to the S3 bucket
+resource "aws_s3_object" "source_files" {
+  bucket = aws_s3_bucket.website.id
+
+  for_each = fileset("${path.module}/../todosProject_v1/frontend/dist", "**/*")
+
+  key    = each.value
+  source = "${path.module}/../todosProject_v1/frontend/dist/${each.value}"
+  content_type = lookup({
+    ".js"   = "application/javascript"
+    ".css"  = "text/css"
+    ".html" = "text/html"
+  }, regex("\\.[^.]+$", each.value), "binary/octet-stream")
+  depends_on = [
+    data.external.build_frontend,
+    aws_s3_bucket.website
+  ]
+}
+# This resource generates a random number between 10000 and 99999 and uses it as a suffix for the S3 bucket name.
+resource "random_integer" "static_number" {
+  min = 10000
+  max = 99999
+
+  keepers = {
+    always_same = "static_value"
+  }
 }
 
 # This is the configuration for the S3 bucket. It creates a bucket with the specified name and enables public access.
 resource "aws_s3_bucket" "website" {
-  bucket = "todosproject-v1-${var.websiteurl}"
+  bucket = "todosproject-v1-${random_integer.static_number.result}"
 }
 
 # This resource configures the public access block settings for the S3 bucket.
@@ -80,21 +115,7 @@ output "website_url" {
   depends_on = [aws_s3_bucket.website]
 }
 
-# Upload files to the S3 bucket
-resource "aws_s3_object" "source_files" {
-  bucket = aws_s3_bucket.website.id
 
-  for_each = fileset("${path.module}/../frontend/dist", "**/*")
-
-  key    = each.value
-  source = "${path.module}/../frontend/dist/${each.value}"
-  content_type = lookup({
-    ".js"   = "application/javascript"
-    ".css"  = "text/css"
-    ".html" = "text/html"
-  }, regex("\\.[^.]+$", each.value), "binary/octet-stream")
-  depends_on = [null_resource.build_frontend]
-}
 
 # Configure the S3 bucket as a static website
 resource "aws_s3_bucket_website_configuration" "website" {

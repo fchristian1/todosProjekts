@@ -1,3 +1,0 @@
-#!/bin/bash
-npx pm2 start app_dev.config.js --env development --update-env
-npx pm2 logs

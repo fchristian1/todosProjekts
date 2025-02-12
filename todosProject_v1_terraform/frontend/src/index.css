@@ -1,9 +1,0 @@
-@import "tailwindcss";
-@source "./safelist.txt";
-@theme {
-    --shadow-rbc: 5px 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-button {
-    cursor: pointer;
-}
