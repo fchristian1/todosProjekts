@@ -10,11 +10,13 @@ resource "null_resource" "build_frontend" {
     command = "cd ../frontend && npm install && npm run build"
   }
 }
-
+variable "websiteurl" {
+  type = string
+}
 
 # This is the configuration for the S3 bucket. It creates a bucket with the specified name and enables public access.
 resource "aws_s3_bucket" "website" {
-  bucket = "website-4265d912"
+  bucket = "todosproject-v1-${var.websiteurl}"
 }
 
 # This resource configures the public access block settings for the S3 bucket.
