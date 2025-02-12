@@ -17,7 +17,7 @@ you must be login with aws_cli and have the right permissions to create resource
 ```bash
 git clone https://github.com/fchristian1/todosProjekts.git && cd todosProjekts/todosProject_v1_terraform/terraform
 terraform init
-terraform apply
+terraform apply -auto-approve
 ```
 
 
