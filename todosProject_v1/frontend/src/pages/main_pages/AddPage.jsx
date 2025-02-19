@@ -6,8 +6,13 @@ import FileNew from "../../components/symbols/FileNew";
 import ScrollBox from "../layout/ScrollBox";
 import AddProject from "./AddPage/AddProject";
 import AddTask from "./AddPage/AddTask";
+import MenuPageTop from "../../components/MenuPageTop";
+import ButtonSquare from "../../components/ButtonSquare";
+import XIcon from "../../components/symbols/XIcon";
+import InfoText from "../../components/InfoTextAmber";
+import ChevronLeft from "../../components/symbols/ChevronLeft";
 
-function AddPage() {
+function AddPage({ setPageMain, selectedProject, selectedTask }) {
     const [page, setPage] = useState("task");
     const onClickButtonTask = () => {
         setPage("task");
@@ -15,9 +20,24 @@ function AddPage() {
     const onClickButtonProject = () => {
         setPage("project");
     };
+    const onClickButtonBack = () => {
+        !selectedProject && !selectedTask && setPageMain("start");
+        selectedProject && setPageMain("project");
+        selectedTask && setPageMain("task");
+    };
     return (
         <div className="flex flex-col gap-1 h-full">
-            <List cols={2} gap={2}>
+            <MenuPageTop>
+                <ButtonSquare p={1} onClick={onClickButtonBack}>
+                    {!selectedProject && !selectedTask && <XIcon></XIcon>}
+                    {(selectedProject || selectedTask) && <ChevronLeft></ChevronLeft>}
+                </ButtonSquare>
+                <InfoText>
+                    {page == "task" && <>Add a new Task</>}
+                    {page == "project" && <>Add a new Project</>}
+                </InfoText>
+            </MenuPageTop>
+            <List p={2} cols={2} gap={2}>
                 <Button active={page == "task" ? "true" : "false"} onClick={onClickButtonTask}>
                     <div className="flex justify-between items-center w-full h-7">
                         <div className="flex justify-center items-center h-full">
@@ -39,8 +59,8 @@ function AddPage() {
                     </div>
                 </Button>
             </List>
-            <ScrollBox>
-                {page == "task" && <AddTask></AddTask>}
+            <ScrollBox p={2}>
+                {page == "task" && <AddTask selectedProject={selectedProject} selectedTask={selectedTask}></AddTask>}
                 {page == "project" && <AddProject></AddProject>}
             </ScrollBox>
         </div>

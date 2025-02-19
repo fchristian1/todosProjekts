@@ -26,7 +26,7 @@ export const colorProject = (projectId, colorName) => {
     projectsData.updateProject({ ...projectsData.getProject(projectId), colorName });
 }
 
-export const addATaskProject = (projectId, taskID) => {
+export const addATaskToProject = (projectId, taskID) => {
     let project = projectsData.getProject(projectId);
     project.tasksIDs.push(taskID);
     projectsData.updateProject(project);

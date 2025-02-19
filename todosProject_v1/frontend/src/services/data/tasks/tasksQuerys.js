@@ -19,3 +19,7 @@ export const getTasksOnGoingLengthForStartPage = () => {
 export const getTasksCanceledLengthForStartPage = () => {
     return tasksData.getTasks().filter(task => task.status === "canceled").length;
 }
+
+export const getTaskById = (taskID) => {
+    return tasksData.getTask(taskID);
+}

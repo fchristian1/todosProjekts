@@ -7,7 +7,8 @@ export const createTask = () => {
         title: "",
         description: "",
         createdAt: Date.now(),
-        status: "open"
+        status: "open",
+        color: "gray"
     }
     tasksData.addTask(newTask);
     return newTask.id;
@@ -21,18 +22,21 @@ export const descriptionTask = (taskID, description) => {
     tasksData.updateTask({ ...tasksData.getTask(taskID), description });
 }
 
-export const setStatusInProcess = (taskID) => {
-    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "inprocess" });
+export const setStatusInProcessTask = (taskID) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "inprocess", color: "amber" });
 }
 
-export const setStatusOnGoing = (taskID) => {
-    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "ongoing" });
+export const setStatusOnGoingTask = (taskID) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "ongoing", color: "blue" });
 }
-export const setStatusCompleted = (taskID) => {
-    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "completed" });
+export const setStatusCompletedTask = (taskID) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "completed", color: "green" });
 }
-export const setStatusCanceled = (taskID) => {
-    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "canceled" });
+export const setStatusCanceledTask = (taskID) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "canceled", color: "red" });
+}
+export const setColorTask = (taskID, color) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), color });
 }
 
 export const deleteTask = (taskID) => {

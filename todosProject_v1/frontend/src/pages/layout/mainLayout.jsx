@@ -7,20 +7,20 @@ import PlusIcon from "../../components/symbols/PlusIcon";
 import FileEarmarkCheck from "../../components/symbols/FileEarmarkCheck";
 import PersonIcon from "../../components/symbols/PersonIcon";
 
-function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, page, setPage }) {
+function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, pageMain, setPageMain }) {
     const setPageHandler = (page) => {
         console.log(page);
-        setPage(page);
+        setPageMain(page);
     };
 
     const mobileCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     return (
         <MobileDeviceMockup>
-            <div id="mainParent" className={"flex justify-center items-center h-full w-[480px]" + (!mobileCheck ? " min-w-[480px] " : "")}>
+            <div id="mainParent" className={"flex justify-center items-center h-full " + (!mobileCheck ? "w-[480px] min-w-[480px] " : "")}>
                 <div id="main" className={" bg-gray-200 " + (!mobileCheck ? " rounded-2xl border-4 border-gray-400 " : " ") + " w-full h-full"}>
-                    <div className="flex flex-col p-1 h-full max-h-full">
+                    <div className="flex flex-col pb-15 h-full max-h-full">
                         {children}
-                        <div className="w-full">
+                        <div className="right-1 bottom-1 left-1 z-50 absolute bg-gray-200 rounded-b-xl">
                             <div className="bg-black mb-2 h-[2px]"></div>
                             <div className="flex flex-row flex-wrap justify-evenly w-full">
                                 <MenuButton onClick={() => setPageHandler("start")}>

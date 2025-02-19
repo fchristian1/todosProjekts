@@ -16,7 +16,7 @@ const removeTask = (TasksID) => {
 };
 
 const updateTask = (Task) => {
-    database = database.map(p => p.id === Task.id ? Task : p);
+    database = database.map(t => t.id === Task.id ? Task : t);
 };
 
 

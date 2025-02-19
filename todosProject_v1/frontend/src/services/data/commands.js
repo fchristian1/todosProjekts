@@ -1,5 +1,5 @@
-import { addATaskProject, colorProject, createProject, deleteProject, descriptionProject, removeATaskProject, setLastAddedProjectID, titleProject } from "./projects/projectsCommands";
-import { createTask, deleteTask, descriptionTask, setStatusCanceled, setStatusCompleted, setStatusInProcess, setStatusOnGoing, titleTask } from "./tasks/tasksCommands";
+import { addATaskToProject, colorProject, createProject, deleteProject, descriptionProject, removeATaskProject, setLastAddedProjectID, titleProject } from "./projects/projectsCommands";
+import { createTask, deleteTask, descriptionTask, setStatusCanceledTask, setColorTask, setStatusCompletedTask, setStatusInProcessTask, setStatusOnGoingTask, titleTask } from "./tasks/tasksCommands";
 
 
 
@@ -8,7 +8,7 @@ export const commandsProjects = {
     titleProject,
     descriptionProject,
     colorProject,
-    addATaskProject,
+    addATaskToProject,
     removeATaskProject,
     deleteProject,
     setLastAddedProjectID
@@ -18,9 +18,10 @@ export const commandsTasks = {
     createTask,
     titleTask,
     descriptionTask,
-    setStatusCanceled,
-    setStatusCompleted,
-    setStatusInProcess,
-    setStatusOnGoing,
+    setStatusCanceledTask,
+    setStatusCompletedTask,
+    setStatusInProcessTask,
+    setStatusOnGoingTask,
+    setColorTask,
     deleteTask
 }
