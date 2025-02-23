@@ -6,7 +6,7 @@ import { dataQueries } from "../../../services/data/querys";
 import { commandsProjects, commandsTasks } from "../../../services/data/commands";
 import { DEBUG } from "../../../context/config";
 
-function AddTask({ selectedProject }) {
+function AddTask({ selectedProject, setPageMain, comesFromPage }) {
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [color, setColor] = React.useState("#000000");
@@ -23,8 +23,9 @@ function AddTask({ selectedProject }) {
             commandsTasks.descriptionTask(newID, description);
         }
         if (project != "") {
-            commandsProjects.addATaskProject(project, newID);
+            commandsProjects.addATaskToProject(project, newID);
         }
+        setPageMain(comesFromPage);
     };
 
     const titleChangeHandler = (e) => {
@@ -44,7 +45,6 @@ function AddTask({ selectedProject }) {
     };
     return (
         <div className="mt-2 border-gray-400 h-full">
-            {DEBUG && <>{project}</>}
             <List col={1} gap={2}>
                 <Input onChange={titleChangeHandler} value={title} type="text" placeholder={"Task Title"}></Input>
                 <Input onChange={descriptionChangeHandler} vlaue={description} type="textarea" placeholder={"Task Description"}></Input>

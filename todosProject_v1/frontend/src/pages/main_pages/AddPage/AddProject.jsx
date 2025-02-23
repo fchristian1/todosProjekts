@@ -3,12 +3,25 @@ import List from "../../../components/list";
 import Input from "../../../components/Input";
 import { dataQueries } from "../../../services/data/querys";
 import Button from "../../../components/Button";
+import { colorProject, createProject, descriptionProject, titleProject } from "../../../services/data/projects/projectsCommands";
 
-function AddProject() {
+function AddProject({ setPageMain, comesFromPage }) {
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [color, setColor] = React.useState("#000000");
     const [project, setProject] = React.useState("");
+
+    const onClickAddButton = () => {
+        if (title != "") {
+            let newID = createProject();
+            titleProject(newID, title);
+            colorProject(newID, color);
+            if (description != "") {
+                descriptionProject(newID, description);
+            }
+        }
+        setPageMain(comesFromPage);
+    };
 
     const titleChangeHandler = (e) => {
         setTitle(e.target.value);
@@ -33,7 +46,7 @@ function AddProject() {
                 <Input onChange={colorChangeHandler} value={color} type="color"></Input>
 
                 <div className="flex flex-col mt-4 p-4 w-full">
-                    <Button>
+                    <Button onClick={onClickAddButton}>
                         <div className="w-full font-bold text-xl text-center">Add Project</div>
                     </Button>
                 </div>

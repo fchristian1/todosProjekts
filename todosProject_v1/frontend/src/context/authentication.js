@@ -1,4 +1,4 @@
-import { fetchApi } from "../servcies/fetch";
+import { fetchApi } from "../services/fetch.js";
 import { getTokenLocalStorage, initToken, newToken, refreshToken } from "./token";
 
 export const isUserLogin = () => {

@@ -1,5 +1,6 @@
 import { tasksData } from "./tasksData";
 import { v4 as uuid } from 'uuid';
+import { getTaskLastStatusStartStopWatch } from "./tasksQuerys";
 
 export const createTask = () => {
     let newTask = {
@@ -35,6 +36,10 @@ export const setStatusCompletedTask = (taskID) => {
 export const setStatusCanceledTask = (taskID) => {
     tasksData.updateTask({ ...tasksData.getTask(taskID), status: "canceled", color: "red" });
 }
+export const setStatusOpenTask = (taskID) => {
+    tasksData.updateTask({ ...tasksData.getTask(taskID), status: "open", color: "gray" });
+}
+
 export const setColorTask = (taskID, color) => {
     tasksData.updateTask({ ...tasksData.getTask(taskID), color });
 }
@@ -42,4 +47,29 @@ export const setColorTask = (taskID, color) => {
 export const deleteTask = (taskID) => {
     tasksData.removeTask(taskID);
 }
+
+export const setStopWatchAllStopTask = (taskID = 0) => {
+    let tasks = tasksData.getTasks();
+    tasks.forEach(task => {
+        if (!task.stopWatch) task.stopWatch = [];
+        if (taskID === task.id) return;
+        if (getTaskLastStatusStartStopWatch(task.id) === "start") {
+            console.log("stop");
+            task.stopWatch = [...task.stopWatch, { start: Date.now(), status: "stop" }];
+            tasksData.updateTask(task);
+        }
+    });
+}
+
+export const setStartStopWatchTask = (taskID) => {
+    setStopWatchAllStopTask(taskID);
+    let task = tasksData.getTask(taskID);
+    if (!task.stopWatch) task.stopWatch = [];
+    getTaskLastStatusStartStopWatch(taskID) === "stop" ?
+        task.stopWatch = [...task.stopWatch, { start: Date.now(), status: "start" }] :
+        task.stopWatch = [...task.stopWatch, { start: Date.now(), status: "stop" }];
+    tasksData.updateTask(task);
+    console.log(task.stopWatch);
+}
+
 

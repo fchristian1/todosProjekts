@@ -14,6 +14,10 @@ export const createProject = () => {
     return newProject.id;
 }
 
+export const dealineProject = (projectId, deadlineDate) => {
+    projectsData.updateProject({ ...projectsData.getProject(projectId), deadlineDate });
+}
+
 export const titleProject = (projectId, title) => {
     projectsData.updateProject({ ...projectsData.getProject(projectId), title });
 }

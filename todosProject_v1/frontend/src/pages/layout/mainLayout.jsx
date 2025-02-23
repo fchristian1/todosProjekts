@@ -6,10 +6,13 @@ import CalenderIcon from "../../components/symbols/CalenderIcon";
 import PlusIcon from "../../components/symbols/PlusIcon";
 import FileEarmarkCheck from "../../components/symbols/FileEarmarkCheck";
 import PersonIcon from "../../components/symbols/PersonIcon";
+import { isUserLogin } from "../../context/authentication";
+import DoorOpen from "../../components/symbols/DoorOpen";
 
-function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, pageMain, setPageMain }) {
+function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, pageMain, setPageMain, comesFromPage, setComesFromPage }) {
     const setPageHandler = (page) => {
         console.log(page);
+        setComesFromPage(pageMain);
         setPageMain(page);
     };
 
@@ -26,18 +29,25 @@ function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, pageM
                                 <MenuButton onClick={() => setPageHandler("start")}>
                                     <HomeIcon></HomeIcon>
                                 </MenuButton>
-                                <MenuButton onClick={() => setPageHandler("calendar")}>
+                                {/* <MenuButton onClick={() => setPageHandler("calendar")}>
                                     <CalenderIcon number={new Date(Date.now()).getDate()}></CalenderIcon>
-                                </MenuButton>
+                                </MenuButton> */}
                                 <MenuButton inverted={false} onClick={() => setPageHandler("add")}>
                                     <PlusIcon></PlusIcon>
                                 </MenuButton>
-                                <MenuButton onClick={() => setPageHandler("tasklist")}>
+                                {/* <MenuButton onClick={() => setPageHandler("tasklist")}>
                                     <FileEarmarkCheck></FileEarmarkCheck>
-                                </MenuButton>
-                                <MenuButton onClick={() => setPageHandler("profile")}>
-                                    <PersonIcon></PersonIcon>
-                                </MenuButton>
+                                </MenuButton> */}
+                                {isUserLogin() && (
+                                    <MenuButton onClick={() => setPageHandler("profile")}>
+                                        <PersonIcon></PersonIcon>
+                                    </MenuButton>
+                                )}
+                                {!isUserLogin() && (
+                                    <MenuButton onClick={() => setPageHandler("login")}>
+                                        <DoorOpen></DoorOpen>
+                                    </MenuButton>
+                                )}
                             </div>
                         </div>
                     </div>

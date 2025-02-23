@@ -11,9 +11,13 @@ import ButtonSquare from "../../components/ButtonSquare";
 import XIcon from "../../components/symbols/XIcon";
 import InfoText from "../../components/InfoTextAmber";
 import ChevronLeft from "../../components/symbols/ChevronLeft";
+import { tasksData } from "../../services/data/tasks/tasksData";
+import { projectsData } from "../../services/data/projects/projectsData";
 
-function AddPage({ setPageMain, selectedProject, selectedTask }) {
-    const [page, setPage] = useState("task");
+function AddPage({ setPageMain, selectedProject, selectedTask, comesFromPage }) {
+    const tasksCount = tasksData.getTasks().length;
+    const projectCount = projectsData.getProjects().length;
+    const [page, setPage] = useState(projectCount === 0 ? "project" : "task");
     const onClickButtonTask = () => {
         setPage("task");
     };
@@ -38,7 +42,7 @@ function AddPage({ setPageMain, selectedProject, selectedTask }) {
                 </InfoText>
             </MenuPageTop>
             <List p={2} cols={2} gap={2}>
-                <Button active={page == "task" ? "true" : "false"} onClick={onClickButtonTask}>
+                <Button disabled={projectCount == 0} active={page == "task" ? "true" : "false"} onClick={onClickButtonTask}>
                     <div className="flex justify-between items-center w-full h-7">
                         <div className="flex justify-center items-center h-full">
                             <FileNew></FileNew>
@@ -60,8 +64,10 @@ function AddPage({ setPageMain, selectedProject, selectedTask }) {
                 </Button>
             </List>
             <ScrollBox p={2}>
-                {page == "task" && <AddTask selectedProject={selectedProject} selectedTask={selectedTask}></AddTask>}
-                {page == "project" && <AddProject></AddProject>}
+                {page == "task" && (
+                    <AddTask selectedProject={selectedProject} selectedTask={selectedTask} setPageMain={setPageMain} comesFromPage={comesFromPage}></AddTask>
+                )}
+                {page == "project" && <AddProject setPageMain={setPageMain} comesFromPage={comesFromPage}></AddProject>}
             </ScrollBox>
         </div>
     );

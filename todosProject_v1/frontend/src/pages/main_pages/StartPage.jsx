@@ -12,6 +12,15 @@ import NormalBox from "../layout/NormalBox";
 import { dataQueries } from "../../services/data/querys";
 import { commandsProjects, commandsTasks } from "../../services/data/commands";
 import FileNew from "../../components/symbols/FileNew";
+import {
+    getProjectCanceledPercentage,
+    getProjectCompletedPercentage,
+    getProjectInProcessPercentage,
+    getProjectOnGoingPercentage,
+    getProjectOpenPercentage,
+    getProjectTaskStopWatchSeconds,
+} from "../../services/data/projects/projectsQuerys";
+import { getHMinFromSeconds } from "../../context/helper";
 
 function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject, setSelectedProject, mainPage, setPageMain }) {
     const [projects, setProjects] = useState([]);
@@ -33,7 +42,7 @@ function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject,
     }, []);
     const getData = async () => {
         let data = dataQueries.getProjectsForStartPage();
-        if (data.length === 0) {
+        if (data.length === -1) {
             let idtask = commandsTasks.createTask();
             commandsTasks.titleTask(idtask, "1 Task");
             commandsTasks.descriptionTask(idtask, "Description 1");
@@ -138,8 +147,14 @@ function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject,
                                     id={project.id}
                                     mainText={project.title}
                                     firstText={project.description.length < 100 ? project.description : project.description.slice(0, 100) + "..."}
-                                    secondText={project.date}
-                                    percent={project.percent}
+                                    secondText={getHMinFromSeconds(getProjectTaskStopWatchSeconds(project.id))}
+                                    segments={[
+                                        { percentage: getProjectOpenPercentage(project.id), color: "gray" },
+                                        { percentage: getProjectCanceledPercentage(project.id), color: "red" },
+                                        { percentage: getProjectInProcessPercentage(project.id), color: "amber" },
+                                        { percentage: getProjectOnGoingPercentage(project.id), color: "blue" },
+                                        { percentage: getProjectCompletedPercentage(project.id), color: "green" },
+                                    ]}
                                     color={project.colorName}
                                 ></InfoProjectsListItem>
                             </Container>
