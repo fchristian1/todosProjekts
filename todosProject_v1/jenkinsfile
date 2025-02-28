@@ -34,7 +34,7 @@ pipeline {
                     sshagent(credentials: [SSH_CREDENTIALS]) {
                         sh """
                         cd todosProject_v1/frontend/dist
-                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'rm -rf ${DEPLOY_PATH}/*, mkdir -p ${DEPLOY_PATH}'
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'rm -rf ${DEPLOY_PATH}/* && mkdir -p ${DEPLOY_PATH}'
                         ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'rm -rf /home/${EC2_USER}/todosProject_v1/frontend/dist && mkdir -p /home/${EC2_USER}/todosProject_v1/frontend/dist'
                         scp -o StrictHostKeyChecking=no -r * ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/todosProject_v1/frontend/dist
                         ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'sudo cp -r /home/${EC2_USER}/todosProject_v1/frontend/dist/* ${DEPLOY_PATH}'
