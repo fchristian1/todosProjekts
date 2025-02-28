@@ -8,7 +8,7 @@ pipeline {
         EC2_USER = 'ubuntu'
         EC2_HOST = '3.70.112.218' // change the ip of the machine
         DEPLOY_PATH = '/var/www/html/' // change the path if needed
-        SSH_CREDENTIALS = 'my-key'  // Use the same ID from step 5
+        SSH_CREDENTIALS = 'my_key'  // Use the same ID from step 5
     }
 
     stages {
