@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    tools{
+        nodejs "NodeJS"
+    }
+    environment {
+        EC2_USER = 'ubuntu'
+        EC2_HOST = '18.184.134.115' // change the ip of the machine
+        DEPLOY_PATH = '/var/www/html/' // change the path if needed
+        SSH_CREDENTIALS = 'jenkins-ec2-key'  // Use the same ID from step 5
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', 
+                    url: 'https://github.com/fchristian1/todosProjekts.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh """
+                    cd todosProject_v1/frontend &&
+                    npm install && 
+                    npm run build
+                """
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    sshagent(credentials: [SSH_CREDENTIALS]) {
+                        sh """
+                        cd todosProject_v1/frontend/dist
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'rm -rf ${DEPLOY_PATH} && mkdir -p ${DEPLOY_PATH}'
+                        scp -o StrictHostKeyChecking=no -r * ${EC2_USER}@${EC2_HOST}:${DEPLOY_PATH}
+                        """
+                    }
+                }
+            }
+        }
+    }
+}

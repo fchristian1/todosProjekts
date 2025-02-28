@@ -19,7 +19,7 @@ function MainLayout({ children, maxHeightPosBottom, setMaxHeightPosBottom, pageM
     const mobileCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     return (
         <MobileDeviceMockup>
-            <div id="mainParent" className={"flex justify-center items-center h-full " + (!mobileCheck ? "w-[480px] min-w-[480px] " : "")}>
+            <div id="mainParent" className={"flex justify-center items-center h-full " + (!mobileCheck ? "w-[480px] min-w-[480px] " : "w-full")}>
                 <div id="main" className={" bg-gray-200 " + (!mobileCheck ? " rounded-2xl border-4 border-gray-400 " : " ") + " w-full h-full"}>
                     <div className="flex flex-col pb-15 h-full max-h-full">
                         {children}
