@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: "vite react frontend",
-    script: "cd frontend && npm run build && npm run start",
+    script: "cd frontend && npm install && npm run build && npm run start",
     env: {
       REACT_APP_API_PORT: "4000",
       REACT_APP_API_URL: "http://localhost"
@@ -9,7 +9,7 @@ module.exports = {
   },
   {
     name: "express backend",
-    script: "cd backend/crud_api_v1 && npm run start",
+    script: "cd backend/crud_api_v1 && npm install && npm run start",
     env: {
       PORT_BACKEND: "3001",
     },
