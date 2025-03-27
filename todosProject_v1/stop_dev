@@ -1,2 +1,6 @@
 #!/bin/bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm use default >/dev/null
+
 npx pm2 stop app_dev.config.js
