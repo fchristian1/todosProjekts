@@ -1,7 +1,7 @@
 #!/bin/bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm use default >/dev/null
+nvm use --lts >/dev/null
 
 npm install
 npx pm2 start app_dev.config.js --env development --update-env
