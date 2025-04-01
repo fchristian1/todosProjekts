@@ -1,7 +1,7 @@
-import { APU_URL } from "../context/config";
+import { API_URL } from "../context/config";
 import { events } from "../context/events";
 
-const url = APU_URL;
+const url = API_URL;
 
 export const fetchApi = async (path, method, data) => {
     const uri = url + path;

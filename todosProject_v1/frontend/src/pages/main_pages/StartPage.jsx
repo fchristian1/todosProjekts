@@ -23,7 +23,14 @@ import {
 import { getHMinFromSeconds } from "../../context/helper";
 import { generateTestData } from "../../context/testData";
 
-function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject, setSelectedProject, mainPage, setPageMain }) {
+function StartPage({
+    maxHeightPosBottom,
+    setMaxHeightPosBottom,
+    selectedProject,
+    setSelectedProject,
+    mainPage,
+    setPageMain,
+}) {
     const [projects, setProjects] = useState([]);
     const [tasks, setTasks] = useState([]);
 
@@ -39,12 +46,16 @@ function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject,
     };
     useEffect(() => {
         resize();
-        getData();
+        const getDataAsync = async () => {
+            await getData();
+        };
+        getDataAsync();
     }, []);
     const getData = async () => {
         let data = dataQueries.getProjectsForStartPage();
         if (data.length === 0) {
             generateTestData();
+            data = dataQueries.getProjectsForStartPage();
         }
         setProjects(data);
         setCompletedTasks(dataQueries.getTasksCompletedLengthForStartPage());
@@ -67,12 +78,37 @@ function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject,
             </div> */}
             <NormalBox p={2}>
                 <List cols={2} gap={4}>
-                    <InfoButton mainText="On Going" subText={onGoingTasks} color="blue" icon={<ArrowRepead />}></InfoButton>
-                    <InfoButton mainText="In Process" subText={inProcessTasks} color="amber" icon={<Clock />}></InfoButton>
-                    <InfoButton mainText="Completed" subText={completedTasks} color="green" icon={<FileEarmarkCheck />}></InfoButton>
+                    <InfoButton
+                        mainText="On Going"
+                        subText={onGoingTasks}
+                        color="blue"
+                        icon={<ArrowRepead />}
+                    ></InfoButton>
+                    <InfoButton
+                        mainText="In Process"
+                        subText={inProcessTasks}
+                        color="amber"
+                        icon={<Clock />}
+                    ></InfoButton>
+                    <InfoButton
+                        mainText="Completed"
+                        subText={completedTasks}
+                        color="green"
+                        icon={<FileEarmarkCheck />}
+                    ></InfoButton>
                     <List cols={2} gap={4}>
-                        <InfoButton mainText="" subText={canceledTasks} color="red" icon={<FileEarmarkX />}></InfoButton>
-                        <InfoButton mainText="" subText={openTasks} color="slate" icon={<FileNew />}></InfoButton>
+                        <InfoButton
+                            mainText=""
+                            subText={canceledTasks}
+                            color="red"
+                            icon={<FileEarmarkX />}
+                        ></InfoButton>
+                        <InfoButton
+                            mainText=""
+                            subText={openTasks}
+                            color="slate"
+                            icon={<FileNew />}
+                        ></InfoButton>
                     </List>
                 </List>
             </NormalBox>
@@ -90,14 +126,55 @@ function StartPage({ maxHeightPosBottom, setMaxHeightPosBottom, selectedProject,
                                 <InfoProjectsListItem
                                     id={project.id}
                                     mainText={project.title}
-                                    firstText={project.description.length < 100 ? project.description : project.description.slice(0, 100) + "..."}
-                                    secondText={getHMinFromSeconds(getProjectTaskStopWatchSeconds(project.id))}
+                                    firstText={
+                                        project.description.length < 100
+                                            ? project.description
+                                            : project.description.slice(
+                                                  0,
+                                                  100
+                                              ) + "..."
+                                    }
+                                    secondText={getHMinFromSeconds(
+                                        getProjectTaskStopWatchSeconds(
+                                            project.id
+                                        )
+                                    )}
                                     segments={[
-                                        { percentage: getProjectOpenPercentage(project.id), color: "gray" },
-                                        { percentage: getProjectCanceledPercentage(project.id), color: "red" },
-                                        { percentage: getProjectInProcessPercentage(project.id), color: "amber" },
-                                        { percentage: getProjectOnGoingPercentage(project.id), color: "blue" },
-                                        { percentage: getProjectCompletedPercentage(project.id), color: "green" },
+                                        {
+                                            percentage:
+                                                getProjectOpenPercentage(
+                                                    project.id
+                                                ),
+                                            color: "gray",
+                                        },
+                                        {
+                                            percentage:
+                                                getProjectCanceledPercentage(
+                                                    project.id
+                                                ),
+                                            color: "red",
+                                        },
+                                        {
+                                            percentage:
+                                                getProjectInProcessPercentage(
+                                                    project.id
+                                                ),
+                                            color: "amber",
+                                        },
+                                        {
+                                            percentage:
+                                                getProjectOnGoingPercentage(
+                                                    project.id
+                                                ),
+                                            color: "blue",
+                                        },
+                                        {
+                                            percentage:
+                                                getProjectCompletedPercentage(
+                                                    project.id
+                                                ),
+                                            color: "green",
+                                        },
                                     ]}
                                     color={project.colorName}
                                 ></InfoProjectsListItem>
